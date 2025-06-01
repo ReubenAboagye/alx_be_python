@@ -1,21 +1,24 @@
 # pattern_drawing.py
 
-def main():
+# Prompt User for Pattern Size:
+while True:
     try:
-        size = int(input("Enter the size of the pattern:").strip())
-        if size <= 0:
+        size = int(input("Enter the size of the pattern: "))
+        if size > 0:
+            break
+        else:
             print("Please enter a positive integer.")
-            return
     except ValueError:
-        print("Invalid input. Please enter a positive integer.")
-        return
+        print("Invalid input. Please enter a number.")
 
-    row = 0
-    while row < size:
-        for _ in range(size):
-            print("*", end="")
-        print()
-        row += 1
+print() # Add a space before printing the pattern for better readability
 
-if __name__ == "__main__":
-    main()
+# Draw the Pattern:
+row = 0
+while row < size:
+    # Inner for loop to print asterisks for each column in the current row
+    for col in range(size):
+        print("*", end="")
+    # After completing each row, print a newline character
+    print()
+    row += 1
