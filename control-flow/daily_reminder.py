@@ -18,16 +18,30 @@ def main():
             break
         print("Invalid input. Please enter 'yes' or 'no'.")
 
-    # 4. Provide the customized reminder based on priority and time sensitivity
+    # 4. Use a match-case statement to form the base reminder based on priority
+    match priority:
+        case "high":
+            base_message = f"Reminder: '{task}' is a high priority task"
+        case "medium":
+            base_message = f"Reminder: '{task}' is a medium priority task"
+        case "low":
+            base_message = f"Note: '{task}' is a low priority task"
+
+    # 5. Modify the reminder if the task is time-bound
     if time_bound == "yes":
-        # Any priority, but time-bound: immediate attention
-        print(f"Reminder: '{task}' is a {priority} priority task that requires immediate attention today!")
+        # Append immediate-attention text for any priority
+        base_message += " that requires immediate attention today!"
     else:
-        # Not time-bound
+        # If not time-bound and low priority, suggest doing it when there’s free time
         if priority == "low":
-            print(f"Note: '{task}' is a low priority task. Consider completing it when you have free time.")
+            base_message += ". Consider completing it when you have free time."
         else:
-            print(f"Reminder: '{task}' is a {priority} priority task.")
+            # For high or medium priority but not time-bound, just end with a period
+            base_message += "."
+
+    # 6. Print the final reminder
+    print(base_message) # Corrected: Removed leading "\n"
+
 
 if __name__ == "__main__":
     main()
