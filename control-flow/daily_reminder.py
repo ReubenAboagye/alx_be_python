@@ -1,24 +1,47 @@
-# pattern_drawing.py
+# daily_reminder.py
 
-# Prompt User for Pattern Size:
-while True:
-    try:
-        size = int(input("Enter the size of the pattern: "))
-        if size > 0:
+def main():
+    # 1. Prompt for a single task description
+    task = input("Enter your task: ").strip()
+
+    # 2. Prompt for the task’s priority and validate with a loop
+    while True:
+        priority = input("Priority (high/medium/low): ").strip().lower()
+        if priority in ("high", "medium", "low"):
             break
+        print("Invalid priority. Please enter 'high', 'medium', or 'low'.")
+
+    # 3. Prompt for whether the task is time-bound (yes/no) and validate with a loop
+    while True:
+        time_bound = input("Is it time-bound? (yes/no): ").strip().lower()
+        if time_bound in ("yes", "no"):
+            break
+        print("Invalid input. Please enter 'yes' or 'no'.")
+
+    # 4. Use a match-case statement to form the base reminder based on priority
+    match priority:
+        case "high":
+            base_message = f"Reminder: '{task}' is a high priority task"
+        case "medium":
+            base_message = f"Reminder: '{task}' is a medium priority task"
+        case "low":
+            base_message = f"Note: '{task}' is a low priority task"
+
+    # 5. Modify the reminder if the task is time-bound
+    if time_bound == "yes":
+        # Append immediate-attention text for any priority
+        base_message += " that requires immediate attention today!"
+    else:
+        # If not time-bound and low priority, suggest doing it when there’s free time
+        if priority == "low":
+            base_message += ". Consider completing it when you have free time."
         else:
-            print("Please enter a positive integer.")
-    except ValueError:
-        print("Invalid input. Please enter a number.")
+            # For high or medium priority but not time-bound, just end with a period
+            base_message += "."
 
-print() # Add a space before printing the pattern for better readability
+    # 6. Print the final reminder
+    print("\n" + base_message)
 
-# Draw the Pattern:
-row = 0
-while row < size:
-    # Inner for loop to print asterisks for each column in the current row
-    for col in range(size):
-        print("*", end="")
-    # After completing each row, print a newline character
-    print()
-    row += 1
+
+if __name__ == "__main__":
+    main()
